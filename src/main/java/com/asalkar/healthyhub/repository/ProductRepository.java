@@ -1,6 +1,8 @@
 package com.asalkar.healthyhub.repository;
 
 import com.asalkar.healthyhub.entity.catalog.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,6 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findBySlug(String slug);
     Optional<Product> findBySku(String sku);
     List<Product> findByIsActiveTrue();
+    Page<Product> findByIsActiveTrue(Pageable pageable);
     
     @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId AND p.isActive = true")
     List<Product> findActiveByCategoryId(Long categoryId);
